@@ -1,6 +1,8 @@
 import React from 'react'
 
-// import { Container } from './styles';
+import Landing from './pages/Landing'
+
+import './assets/styles/global.css'
 
 import Routes from './routes/index'
 
