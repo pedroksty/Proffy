@@ -7,9 +7,11 @@ import studyIcons from '../../assets/images/icons/study.svg'
 import giveClassesIcon from '../../assets/images/icons/give-classes.svg'
 import purpleHeartIcon from '../../assets/images/icons/purple-heart.svg'
 
+import './styles.css'
+
 const Landing: React.FC = () => {
   return (
-    <div id="page-lading">
+    <div className="page-lading">
       <div id="page-landing-content" className="container">
         <div className="logo-container">
           <img src={logoImg} alt="Proffy" />
