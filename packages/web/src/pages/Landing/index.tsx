@@ -27,8 +27,8 @@ const Landing: React.FC = () => {
           </a>
 
           <a href="forever" className="give-classes">
-            <img src={giveClassesIcon} alt="Estudar" />
-            Estudar
+            <img src={giveClassesIcon} alt="Dar aulas" />
+            Dar aulas
           </a>
         </div>
 
