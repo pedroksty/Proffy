@@ -1,8 +1,13 @@
 import bcript from 'bcryptjs'
 
-export default function (
-  password: string,
+interface CheckPasswordProps {
+  password: string
   password_hash: string
-): Promise<boolean> {
+}
+
+export default function ({
+  password,
+  password_hash
+}: CheckPasswordProps): Promise<boolean> {
   return bcript.compare(password, password_hash)
 }
