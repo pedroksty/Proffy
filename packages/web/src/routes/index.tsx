@@ -1,21 +1,16 @@
 import React from 'react'
-import { Switch, BrowserRouter } from 'react-router-dom'
-import Route from './Router'
+import { BrowserRouter, Route } from 'react-router-dom'
 
-
-import Login from '../pages/Login'
-
-import Home from '../pages/Home'
+import Landing from '../pages/Landing'
+import TeacherList from '../pages/TeacherList'
+import TeacherForm from '../pages/TeacherForm'
 
 const Routes: React.FC = () => {
   return (
     <BrowserRouter>
-
-      <Switch>
-        <Route isPrivate={false} path="/" exact component={Home} />
-        <Route isPrivate={false} path="/login" component={Login} />
-
-      </Switch>
+      <Route path="/" exact component={Landing} />
+      <Route path="/study" component={TeacherList} />
+      <Route path="/give-classes" component={TeacherForm} />
     </BrowserRouter>
   )
 }
