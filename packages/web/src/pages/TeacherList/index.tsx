@@ -1,12 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import logoImg from '../../assets/images/logo.svg'
-import backIcon from '../../assets/images/icons/back.svg'
-
-import './styles.css'
 
 import Pageheader from '../../components/Pageheader'
+import TearcherItem from '../../components/TearcherItem'
+
+import './styles.css'
 
 const TeacherList: React.FC = () => {
   return (
@@ -29,6 +26,15 @@ const TeacherList: React.FC = () => {
           </div>
         </form>
       </Pageheader>
+
+      <main>
+        <TearcherItem />
+        <TearcherItem />
+
+        <TearcherItem />
+        <TearcherItem />
+        <TearcherItem />
+      </main>
     </div>
   )
 }
