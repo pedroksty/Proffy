@@ -1,13 +1,10 @@
 import knex from 'knex'
+import path from 'path'
 
 const db = knex({
-  client: 'pg',
+  client: 'sqlite3',
   connection: {
-    host: '192.168.1.11',
-    port: 5432,
-    user: 'postgres',
-    password: 'docker',
-    database: 'proffy'
+    filename: path.resolve(__dirname, 'database.sqlite')
   },
   useNullAsDefault: true
 })

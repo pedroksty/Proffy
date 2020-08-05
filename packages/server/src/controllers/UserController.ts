@@ -23,25 +23,21 @@ class UserController {
     const trx = await db.transaction()
 
     try {
-      const insertedUserIds = await trx('users')
-        .insert({
-          name,
-          avatar,
-          bio,
-          whatsapp
-        })
-        .returning('*')
+      const insertedUserIds = await trx('users').insert({
+        name,
+        avatar,
+        bio,
+        whatsapp
+      })
 
-      const user_id = insertedUserIds[0].id
-      const insertedClassId = await trx('classes')
-        .insert({
-          subject,
-          cost,
-          user_id
-        })
-        .returning('*')
+      const user_id = insertedUserIds[0]
+      const insertedClassId = await trx('classes').insert({
+        subject,
+        cost,
+        user_id
+      })
 
-      const class_id = insertedClassId[0].id
+      const class_id = insertedClassId[0]
 
       const classSchdule = schedule.map((scheduleItem: ScheduleItem) => {
         return {
@@ -52,13 +48,11 @@ class UserController {
         }
       })
 
-      const insertedClass = await trx('class_schedule')
-        .insert(classSchdule)
-        .returning('*')
+      await trx('class_schedule').insert(classSchdule)
 
       await trx.commit()
 
-      return response.json({ insertedUserIds, insertedClassId, insertedClass })
+      return response.status(201).send()
     } catch (err) {
       await trx.rollback()
       console.log(err)
@@ -68,7 +62,36 @@ class UserController {
     }
   }
 
-  async index(request: Request, response: Response): Promise<any> {}
+  async index(request: Request, response: Response): Promise<any> {
+    const filters = request.query
+
+    const subject = filters.subject as string
+    const week_day = filters.week_day as string
+    const time = filters.time as string
+
+    if (!filters.subject || !filters.week_day || !filters.time) {
+      return response.json({
+        error: 'Missing filters to search classes'
+      })
+    }
+
+    const timeInMinutes = convertHoursToMinute(time)
+
+    const classes = await db('classes')
+      .whereExists(function () {
+        this.select('class_schedule.*')
+          .from('class_schedule')
+          .whereRaw('`class_schedule`.`class_id`')
+          .whereRaw('`class_schedule`.`week_day` = ??', [Number(week_day)])
+          .whereRaw('`class_schedule`.`from` <= ??', [timeInMinutes])
+          .whereRaw('`class_schedule`.`to` > ??', [timeInMinutes])
+      })
+      .where('classes.subject', '=', subject)
+      .join('users', 'classes.user_id', '=', 'users.id')
+      .select(['classes.*', 'users.*'])
+
+    return response.json(classes)
+  }
 
   async show(request: Request, response: Response): Promise<any> {}
 
