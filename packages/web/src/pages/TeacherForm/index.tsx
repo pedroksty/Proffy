@@ -2,6 +2,7 @@ import React from 'react'
 
 import PageHeader from '../../components/Pageheader'
 import Input from '../../components/Input'
+import Textarea from '../../components/Textarea'
 
 import warningIcon from '../../assets/images/icons/warning.svg'
 
@@ -24,6 +25,8 @@ const TeacherForm: React.FC = () => {
           <Input name="avatar" label="Avatar" />
 
           <Input name="whatsapp" label="Nome completo" />
+
+          <Textarea name="bio" label="Biografia" />
         </fieldset>
 
         <fieldset>
