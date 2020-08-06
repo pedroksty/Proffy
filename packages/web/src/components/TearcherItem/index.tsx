@@ -36,10 +36,10 @@ const TearcherItem: React.FC<TearcherItemProps> = ({ teacher }) => {
           Preço/hora
           <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a type="button" href={`https://wa.me/${teacher.whatsapp}`}>
           <img src={whatsAppIcon} alt="Whatsapp" />
           Entrar em contato
-        </button>
+        </a>
       </footer>
     </article>
   )
