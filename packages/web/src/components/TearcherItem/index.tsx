@@ -3,6 +3,7 @@ import React from 'react'
 import whatsAppIcon from '../../assets/images/icons/whatsapp.svg'
 
 import './styles.css'
+import api from '../../services/api'
 
 export interface Teacher {
   avatar: string
@@ -19,6 +20,14 @@ interface TearcherItemProps {
 }
 
 const TearcherItem: React.FC<TearcherItemProps> = ({ teacher }) => {
+  async function createNewConnection() {
+    await api.post('/connections', {
+      user_id: teacher.id
+    })
+
+    alert('Nova conexão realizada')
+  }
+
   return (
     <article className="teacher-item">
       <header>
@@ -36,7 +45,12 @@ const TearcherItem: React.FC<TearcherItemProps> = ({ teacher }) => {
           Preço/hora
           <strong>R$ {teacher.cost}</strong>
         </p>
-        <a type="button" href={`https://wa.me/${teacher.whatsapp}`}>
+        <a
+          target="_blanck"
+          onClick={createNewConnection}
+          type="button"
+          href={`https://wa.me/${teacher.whatsapp}`}
+        >
           <img src={whatsAppIcon} alt="Whatsapp" />
           Entrar em contato
         </a>
