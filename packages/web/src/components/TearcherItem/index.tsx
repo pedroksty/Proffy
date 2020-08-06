@@ -4,31 +4,37 @@ import whatsAppIcon from '../../assets/images/icons/whatsapp.svg'
 
 import './styles.css'
 
-const TearcherItem: React.FC = () => {
+export interface Teacher {
+  avatar: string
+  bio: string
+  cost: number
+  id: number
+  name: string
+  subject: string
+  whatsapp: string
+}
+
+interface TearcherItemProps {
+  teacher: Teacher
+}
+
+const TearcherItem: React.FC<TearcherItemProps> = ({ teacher }) => {
   return (
     <article className="teacher-item">
       <header>
-        <img
-          src="https://avatars2.githubusercontent.com/u/52813792?s=460&u=ee9c8be21c18177a6cf9b214124eb99f178be76b&v=4"
-          alt="Pedro Henrique"
-        />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Pedro Henrique</strong>
-          <span>Matemática</span>
+          <strong>{teacher.name}</strong>
+          <span>{teacher.subject}</span>
         </div>
       </header>
 
-      <p>
-        Entusiasta das melhores tecnologias no mundo do desenvolvimento web.
-        <br />
-        <br />
-        Apaixonado por criar plataformas que vão mudar o mundo.
-      </p>
+      <p>{teacher.bio}</p>
 
       <footer>
         <p>
           Preço/hora
-          <strong>R$ 35,00</strong>
+          <strong>R$ {teacher.cost}</strong>
         </p>
         <button type="button">
           <img src={whatsAppIcon} alt="Whatsapp" />
